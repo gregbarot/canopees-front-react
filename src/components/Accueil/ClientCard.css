@@ -1,0 +1,73 @@
+/* Carte client */
+
+.client-card {
+  background: var(--color-white);
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  min-width: 250px;
+}
+
+.client-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Titre de la carte */
+.card-title {
+  font-family: var(--font-title);
+  font-size: var(--fs-32);
+}
+
+@media (min-width: 1400px) {
+  .card-title {
+    font-size: var(--fs-38);
+  }
+}
+
+/* barre sous le titre */
+.card-divider {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 4px;
+  margin-bottom: 20px;
+  border-radius: 2px;
+}
+
+/* Couleurs selon carte */
+.client-card.couleurParticuliers .card-title {
+  color: var(--color-blue);
+}
+.client-card.couleurParticuliers .card-divider {
+  background-color: var(--color-blue);
+}
+
+.client-card.couleurProfessionnels .card-title {
+  color: var(--color-green);
+}
+.client-card.couleurProfessionnels .card-divider {
+  background-color: var(--color-green);
+}
+
+.client-card.couleurCollectivités .card-title {
+  color: var(--color-orange);
+}
+.client-card.couleurCollectivités .card-divider {
+  background-color: var(--color-orange);
+}
+
+/* image */
+.client-image img {
+  width: 100%;
+  /* aspect-ratio: 1 / 1; */
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+/* texte sous l'image */
+
+.client-card .description {
+  font-size: var(--fs-20);
+  font-weight: 500;
+}

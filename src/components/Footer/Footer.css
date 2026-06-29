@@ -1,0 +1,34 @@
+.divider {
+  content: "";
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 20px;
+  height: 2px;
+  max-width: 600px;
+  background-color: var(--color-green);
+}
+
+footer .title {
+  color: var(--color-purple);
+  font-size: var(--fs-32);
+}
+
+/* Liens du footer */
+
+.footer-link {
+  font-size: var(--fs-18);
+  font-family: var(--font-title);
+  font-weight: 400;
+  color: var(--color-purple);
+  text-decoration: none;
+  cursor: pointer;
+}
+.footer-link:hover {
+  text-decoration: underline;
+}
+@media (min-width: 576px) {
+  .footer-link{
+    font-size: var(--fs-24);
+}
+}

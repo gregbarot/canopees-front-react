@@ -1,0 +1,68 @@
+/* Titre fixe sur le slider */
+
+#hero-slider {
+  position: relative;
+}
+#hero-slider .slider-content {
+  position: absolute;
+  bottom: 20%;
+  left: 15%;
+  z-index: 10;
+}
+
+.slider-content .surtitle {
+  color: var(--color-white);
+  font-family: var(--font-title);
+  font-size: var(--fs-24);
+  line-height: 1.2;
+  margin-bottom: 30px;
+  text-shadow: 1px 2px 2px black;
+}
+
+.slider {
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 992px) {
+  .slider-content .surtitle {
+    font-size: var(--fs-48);
+  }
+}
+
+/* Bouton fixe sur le slider */
+
+#hero-slider .slider-button {
+  display: inline-block;
+  background-color: var(--color-pink);
+  min-width: 220px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 3px solid transparent;
+  text-decoration: none;
+  color: var(--color-white);
+  font-size: var(--fs-14);
+  font-weight: 500;
+}
+
+@media (min-width: 992px) {
+  #hero-slider .slider-button {
+    padding: 14px 24px;
+    font-size: var(--fs-24);
+  }
+}
+
+#hero-slider .slider-button:hover {
+  border: 3px solid var(--color-white);
+}
+
+/* Partie Type de Clients */
+
+#clients {
+  background-color: var(--color-light-green);
+  width: 100vw;
+  position: relative;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+}

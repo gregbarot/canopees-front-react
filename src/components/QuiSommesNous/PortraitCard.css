@@ -1,0 +1,21 @@
+.portrait-image {
+  float: right;
+  width: 40%;
+  margin-left: 50px;
+  shape-outside: circle();
+  border-radius: 50%;
+  overflow: hidden;
+  border: 5px solid var(--color-green);
+  /* shape-margin: 12px; */
+}
+.portrait-image img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.portrait-card {
+  border: 5px solid var(--color-green);
+  border-radius: 20px;
+  height: 100%;
+}

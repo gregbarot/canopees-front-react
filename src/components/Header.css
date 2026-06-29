@@ -1,0 +1,23 @@
+/* Header */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--color-white);
+  box-shadow: 0 0.25rem 0.5rem -0.5rem rgba(0, 0, 0, 0.75);
+}
+
+/* Logo */
+
+.logo {
+  max-width: 666px;
+  width: 100%;
+}
+
+.logo-container {
+  transform: scale(1);
+  transition: transform 0.3s ease;
+}
+header.scrolled .logo-container {
+  transform: scale(0.4);
+}

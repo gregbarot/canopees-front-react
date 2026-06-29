@@ -1,0 +1,118 @@
+/* Textes et messages d'erreurs */
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-text);
+  font-size: var(--fs-20);
+}
+
+.required {
+  color: var(--color-pink);
+  font-style: italic;
+  margin-left: 0.5rem;
+}
+
+.error-message {
+  margin-top: 0.4rem;
+  color: var(--color-red);
+  font-size: var(--fs-16);
+}
+
+.required,
+.error-message,
+.checkbox-group label {
+  font-size: var(--fs-14);
+  font-weight: 500;
+}
+
+@media (min-width: 768px) {
+  .required,
+  .error-message,
+  .checkbox-group label {
+    font-size: var(--fs-18);
+  }
+  .form-group label {
+    font-size: var(--fs-24);
+  }
+}
+
+/* les inputs */
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.1rem;
+  border: 1px solid #32323340;
+  border-radius: 10px;
+  font-size: var(--fs-18);
+  background-color: var(--color-white);
+  color: var(--color-text);
+  outline: none;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  padding-inline: 0.8rem;
+}
+
+/* Erreur input */
+
+.form-group .input-error {
+  border: 2px solid var(--color-red);
+}
+
+.form-group .input-error:focus {
+  outline: none;
+  box-shadow: 0 0 0 5px rgba(255, 0, 34, 0.2);
+}
+
+/* focus perso */
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: var(--color-green);
+  box-shadow: 0 0 0 3px rgba(111, 143, 114, 0.2);
+}
+
+/* checkbox */
+
+.checkbox-group input {
+  width: 30px;
+  height: 30px;
+  margin-top: 0.4rem;
+  margin-right: 1rem;
+  accent-color: var(--color-green);
+}
+
+.checkbox-group label,
+.required-note {
+  font-size: var(--fs-16);
+  line-height: 1.4;
+}
+
+/* bouton */
+
+.btn-submit {
+  width: 75%;
+  padding: 0.9rem 1.5rem;
+  margin-block: 2rem;
+  border-radius: 999px;
+  background-color: var(--color-red);
+  color: #fff;
+  font-size: var(--fs-20);
+  font-weight: 600;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: all 0.25s ease;
+}
+
+.btn-submit:hover,
+.btn-submit:focus {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  border: 3px solid var(--color-white);
+  outline: none;
+}
