@@ -6,7 +6,20 @@ import Clients from "../components/Accueil/Clients";
 import Realisations from "../components/Accueil/Realisations";
 import "../styles/Accueil.css";
 
+//mon hook perso apicall des pagecontents
+import { usePageContents } from "../hooks/usePageContents";
+
 export default function Accueil() {
+//je récupere les contenus de la page accueil
+  const { getContent, loading, error } = usePageContents("accueil");
+
+//je recupere les contenus par section
+  const sliderContent = getContent("slider");
+  const descriptionContent = getContent("description");
+  const clientsContent = getContent("clients");
+  const realisationsContent = getContent("realisations");
+
+
   // Titre et Description de ma page.
   useEffect(() => {
     document.title =
@@ -21,15 +34,24 @@ export default function Accueil() {
     }
   }, []);
 
+
+    if (loading) {
+    return <p>Chargement de la page...</p>;
+  }
+
+  if (error) {
+    return <p>Impossible de charger les contenus de la page.</p>;
+  }
+
   return (
     <>
       <section id="hero-slider">
         {/* Contenu par dessus le slider */}
         <div className="slider-content col-8 col-lg-6">
-          <p className="surtitle">Création et entretien d'espaces verts</p>
+          <p className="surtitle">{sliderContent?.title}</p>
 
           <Link to="/prestations" className="slider-button">
-            Découvrez nos prestations
+            {sliderContent?.subtitle}
           </Link>
         </div>
 
@@ -37,11 +59,11 @@ export default function Accueil() {
         <Slider />
       </section>
 
-      <Description />
+      <Description content={descriptionContent}/>
 
-      <Clients />
+      <Clients content={clientsContent}/>
 
-      <Realisations />
+      <Realisations content={realisationsContent}/>
     </>
   );
 }

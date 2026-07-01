@@ -5,7 +5,7 @@
   width: 100%;
 }
 
-.slider-img {
+.slider-img, .slider-loading, .slider-error {
   width: 100%;
   height: 600px;
   object-fit: cover;
