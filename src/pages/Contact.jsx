@@ -5,7 +5,7 @@ import { useBios } from "../hooks/useBios";
 
 import Formulaire from "../components/Contact/Formulaire";
 import "../styles/Contact.css";
-import contactImage from "../assets/images/portrait/bob-et-tom.png";
+// import contactImage from "../assets/images/portrait/bob-et-tom.png";
 import maps from "../assets/images/maps-canopees.png";
 
 export default function Contact() {
@@ -52,11 +52,14 @@ export default function Contact() {
           {/* Zone infos */}
           <div className="contact-info-content">
             <div className="portrait d-none d-md-flex flex-column align-items-center">
-              <img src={contactImage} alt="Portrait de Bob et Tom" />
+              <img
+                src={`${backUrl}${company?.imageUrl}`}
+                alt="Portrait de Bob et Tom"
+              />
               <h2>{infosContent?.title}</h2>
               <span>{infosContent?.subtitle}</span>
               <p
-                dangerouslySetInnerHTML={{ __html: infosContent.textContent }}
+                dangerouslySetInnerHTML={{ __html: infosContent?.textContent }}
               />
 
             </div>
@@ -65,7 +68,7 @@ export default function Contact() {
               <div className="horaires d-flex flex-column align-items-start mt-5">
                 <h2>{scheduleContent?.title}</h2>
                 <div
-                  dangerouslySetInnerHTML={{ __html: scheduleContent.textContent }}
+                  dangerouslySetInnerHTML={{ __html: scheduleContent?.textContent }}
                 />
               </div>
 
