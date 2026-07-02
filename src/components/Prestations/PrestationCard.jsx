@@ -1,8 +1,17 @@
 import "./PrestationCard.css";
 import ModalButton from "./ModalButton";
+import { useServiceImages } from "../../hooks/useServiceImages";
+
 
 export default function PrestationCard({ prestation }) {
+  const backUrl = import.meta.env.VITE_BACK_URL;
+
+  const { serviceImages, loading, error } = useServiceImages(prestation.id);
+
   const isOdd = prestation.id % 2 !== 0;
+
+  const mainImage =
+    serviceImages.find((image) => image.main) || serviceImages[0];
 
   return (
     // mon container pour le fond
@@ -13,29 +22,43 @@ export default function PrestationCard({ prestation }) {
           {/* ma div info */}
           <div className="prestation-info col-12 col-lg-7 d-flex">
             <div className="d-flex flex-column justify-content-start">
-              <h2 className="text-lg-start">{prestation.titre}</h2>
+              <h2 className="text-lg-start">{prestation.name}</h2>
 
               <div
-                className={`prestation-divider divider-${prestation.couleur} align-self-center align-self-lg-start`}
+                className={`prestation-divider divider-${prestation.color} align-self-center align-self-lg-start`}
               ></div>
 
-              <div className="prestation-description">{prestation.texte}</div>
-
+              <div
+                className="prestation-description"
+                dangerouslySetInnerHTML={{
+                  __html: prestation.description || "",
+                }}
+              />
+              {/* Bouton mobile */}
               <div className="d-none d-lg-flex mt-auto">
-                <ModalButton prestation={prestation} />
+                <ModalButton prestation={prestation} images={serviceImages} />
               </div>
             </div>
           </div>
           {/* Ma div image */}
           <div className="prestation-img col-12 col-lg-5">
-            <img
-              src={prestation.image}
-              alt={prestation.titre}
-              className={`img-fluid border-${prestation.couleur}`}
-            />
+            {loading && <p>Chargement de l’image...</p>}
+
+            {error && <p>Image indisponible.</p>}
+
+            {!loading && !error && mainImage && (
+              <img
+                src={`${backUrl}${mainImage.imageUrl}`}
+                alt={mainImage.altText}
+                className={`img-fluid border-${prestation.color}`}
+              />
+            )}
+
           </div>
+
+          {/* Bouton Desktop */}
           <div className="d-lg-none d-flex justify-content-center my-5">
-            <ModalButton prestation={prestation} />
+            <ModalButton prestation={prestation} images={serviceImages}/>
           </div>
         </div>
       </div>

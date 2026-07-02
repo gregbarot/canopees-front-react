@@ -19,7 +19,7 @@ export default function Clients({ content }) {
         <div className="card-container row justify-content-center gap-4">
           {targetAudiences.map((targetAudience) => (
             <ClientCard 
-              key={targetAudiences.id}
+              key={targetAudience.id}
               titre={targetAudience.name}
               image={`${backUrl}${targetAudience.imageUrl}`}
               texte={targetAudience.description}

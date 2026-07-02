@@ -2,11 +2,18 @@ import { useState } from "react";
 import "./ModalPrestation.css";
 import close from "../../assets/icons/close.svg";
 
-export default function ModalPrestation({ closeModal, prestation }) {
+export default function ModalPrestation({ closeModal, prestation, images }) {
+  const backUrl = import.meta.env.VITE_BACK_URL;
+
   const [imageActive, setImageActive] = useState(0);
 
-  const imagePrincipale = prestation.galerie[imageActive];
-  const vignette = prestation.galerie;
+  //au cas ou les images ne sont pas chargées
+  if (!images || images.length === 0) {
+    return null;
+  }
+
+  const imagePrincipale = images[imageActive];
+  // const vignette = images;
 
   return (
     <div
@@ -30,19 +37,22 @@ export default function ModalPrestation({ closeModal, prestation }) {
           </button>
           {/* Image principale */}
           <div className="image-principale-container d-flex">
-            <img src={imagePrincipale.src} alt={imagePrincipale.alt} />
+            <img 
+              src={`${backUrl}${imagePrincipale.imageUrl}`}
+              alt={imagePrincipale.altText} 
+            />
           </div>
           {/* Separateur */}
           <div
-            className={`modal-divider divider-${prestation.couleur} align-self-center`}
+            className={`modal-divider divider-${prestation.color} align-self-center`}
           ></div>
           {/* Vignettes */}
           <div className="modal-gallery row">
-            {vignette.map((image, index) => (
+            {images.map((image, index) => (
               <div className="col-6 col-md-3 my-2" key={image.id}>
                 <img
-                  src={image.src}
-                  alt={image.alt}
+                  src={`${backUrl}${image.imageUrl}`}
+                  alt={image.altText}
                   className={`vignette ${imageActive === index ? "active" : ""}`}
                   onClick={() => setImageActive(index)}
                 />

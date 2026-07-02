@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import ModalPrestation from "./ModalPrestation";
 import "./ModalButton.css";
 
-export default function ModalButton({ prestation }) {
+export default function ModalButton({ prestation, images }) {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -16,6 +16,7 @@ export default function ModalButton({ prestation }) {
           <ModalPrestation
             closeModal={() => setShowModal(false)}
             prestation={prestation}
+            images={images}
           />,
           document.body,
         )}

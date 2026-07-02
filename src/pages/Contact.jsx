@@ -1,5 +1,8 @@
 import { useEffect } from "react";
 
+import { usePageContents } from "../hooks/usePageContents";
+import { useBios } from "../hooks/useBios";
+
 import Formulaire from "../components/Contact/Formulaire";
 import "../styles/Contact.css";
 import contactImage from "../assets/images/portrait/bob-et-tom.png";
@@ -20,9 +23,24 @@ export default function Contact() {
     }
   }, []);
 
+
+  const backUrl = import.meta.env.VITE_BACK_URL;
+
+  const { getContent, loading, error } = usePageContents("contact");
+  const pageContent = getContent("introduction");
+  const infosContent = getContent("infos");
+  const scheduleContent = getContent("horaires");
+  const {
+    bios,
+    loading: biosLoading,
+    error: biosError,
+        } = useBios();
+
+  const company = bios.find((bio) => bio.name === "Canopées");
+
   return (
     <section className="py-4" id="contact">
-      <h1>Contact</h1>
+      <h1>{pageContent?.title}</h1>
 
       <div className="row flex-md-row-reverse">
         <div className="contact-form col-12 col-md-7">
@@ -35,24 +53,20 @@ export default function Contact() {
           <div className="contact-info-content">
             <div className="portrait d-none d-md-flex flex-column align-items-center">
               <img src={contactImage} alt="Portrait de Bob et Tom" />
-              <h2>Bob et Tom</h2>
-              <span>Gérants de Canopées</span>
-              <p>
-                Une question, un besoin d’entretien ou un projet d’aménagement ?
-                L’équipe Canopées vous accompagne avec écoute et savoir-faire.
-              </p>
+              <h2>{infosContent?.title}</h2>
+              <span>{infosContent?.subtitle}</span>
+              <p
+                dangerouslySetInnerHTML={{ __html: infosContent.textContent }}
+              />
+
             </div>
 
             <div className="contact-details d-flex flex-column">
               <div className="horaires d-flex flex-column align-items-start mt-5">
-                <h2>Horaires</h2>
-                <p>
-                  <strong>Lundi au Vendredi</strong>
-                </p>
-                <p>8h30 - 12h00 / 13h30 - 17h30</p>
-                <p>
-                  <strong>Samedi -Dimanche :</strong> fermé
-                </p>
+                <h2>{scheduleContent?.title}</h2>
+                <div
+                  dangerouslySetInnerHTML={{ __html: scheduleContent.textContent }}
+                />
               </div>
 
               <div className="localisation d-flex flex-column mt-5">

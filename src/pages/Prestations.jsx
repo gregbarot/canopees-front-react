@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-
+import { usePageContents } from "../hooks/usePageContents";
+import { useServices } from "../hooks/useServices";
 import "../styles/Prestations.css";
 import PrestationCard from "../components/Prestations/PrestationCard";
 
-import { prestations } from "../data/prestations_data";
 
 export default function Prestations() {
   // Titre et Description de ma page.
@@ -20,12 +20,31 @@ export default function Prestations() {
     }
   }, []);
 
+
+  const { getContent, loading, error } = usePageContents("prestations");
+
+  const {
+    services,
+    loading: servicesLoading,
+    error: servicesError,
+  } = useServices();
+
+
+   if (loading || servicesLoading) {
+    return <p>Chargement de la page...</p>;
+  }
+
+  if (error || servicesError) {
+    return <p>Impossible de charger les prestations.</p>;
+  }
+
+
   return (
     <section className="pt-4" id="prestations">
-      <h1>Nos prestations.</h1>
+      <h1>{getContent("introduction")?.title}</h1>
       <div className="prestation-card-container">
-        {prestations.map((element) => (
-          <PrestationCard key={element.id} prestation={element} />
+        {services.map((service) => (
+          <PrestationCard key={service.id} prestation={service} />
         ))}
       </div>
     </section>

@@ -1,5 +1,8 @@
 import { useEffect } from "react";
 
+import { usePageContents } from "../hooks/usePageContents";
+import { useServices } from "../hooks/useServices";
+
 import { Link } from "react-router-dom";
 import "../styles/Tarifs.css";
 
@@ -18,18 +21,30 @@ export default function Tarifs() {
     }
   }, []);
 
+  const { getContent, loading, error } = usePageContents("tarifs");
+  const content = getContent("introduction")
+
+  const {
+    services,
+    loading: servicesLoading,
+    error: servicesError,
+  } = useServices();
+
+  if (loading || servicesLoading) {
+    return <p>Chargement de la page...</p>;
+  }
+
+  if (error || servicesError) {
+    return <p>Impossible de charger les prestations.</p>;
+  }
+
   return (
     <section className="pt-4" id="tarifs">
-      <h1>Tarifs de nos prestations.</h1>
+      <h1>{content?.title}</h1>
 
-      <section className="tarifs-intro">
-        <p>
-          Chaque espace vert possède ses <strong>propres besoins</strong>.
-          Canopées propose des <strong>prestations adaptées</strong> aux
-          particuliers, professionnels et collectivités, avec des tarifs pensés
-          selon la nature de l’intervention.
-        </p>
-      </section>
+      <section className="tarifs-intro"
+        dangerouslySetInnerHTML={{ __html: content.textContent }}
+      />
 
       <section className="tarifs-section">
         <div className="tarifs-container d-flex flex-column align-items-center mb-5">
@@ -42,7 +57,14 @@ export default function Tarifs() {
             </thead>
 
             <tbody>
-              <tr>
+                {/* on cree une boucle pour avoir les tarifs automatiquement */}
+               {services.map((service) => (
+                <tr key={service.id}>
+                  <td>{service.name}</td>
+                  <td>{service.priceText}</td>
+                </tr>
+              ))}
+              {/* <tr>
                 <td>Entretien des espaces verts</td>
                 <td>À partir de 35€ / h</td>
               </tr>
@@ -57,7 +79,7 @@ export default function Tarifs() {
               <tr>
                 <td>Élagage et abattage d’arbres</td>
                 <td>Sur devis</td>
-              </tr>
+              </tr> */}
             </tbody>
           </table>
 

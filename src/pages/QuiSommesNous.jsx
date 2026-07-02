@@ -53,11 +53,11 @@ export default function QuiSommesNous() {
 
       <div className="presentation">
         <div className="presentation-image col-12 col-md-6 mb-4 mb-lg-0">
-          <img src={`${backUrl}${companyBio.imageUrl}`} alt="portrait de Bob et Tom"></img>
+          <img src={`${backUrl}${companyBio?.imageUrl}`} alt="portrait de Bob et Tom"></img>
         </div>
         <div className="presentation-texte"
               dangerouslySetInnerHTML={{
-                __html: companyBio.description,
+                __html: companyBio?.description,
               }}
         />
       </div>
