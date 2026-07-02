@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Slider from "../components/Slider/Slider";
 import Description from "../components/Accueil/Description";
-import Clients from "../components/Accueil/Clients";
+import Clients from "../components/Accueil/CLients";
 import Realisations from "../components/Accueil/Realisations";
 import "../styles/Accueil.css";
 

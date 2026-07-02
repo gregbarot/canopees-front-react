@@ -1,77 +1,60 @@
 import { useState } from "react";
 import "./Carousel.css";
 
-import real_01 from "../../assets/images/realisations/img_realisations_01.png";
-import real_02 from "../../assets/images/realisations/img_realisations_02.png";
-import real_03 from "../../assets/images/realisations/img_realisations_03.png";
-import real_04 from "../../assets/images/realisations/img_realisations_04.png";
-import real_05 from "../../assets/images/realisations/img_realisations_05.png";
-
-const realisations = [
-  {
-    id: 1,
-    image: real_01,
-    alt: "Réalisation d'aménagement de jardin",
-  },
-  {
-    id: 2,
-    image: real_02,
-    alt: "Réalisation d'aménagement de jardin",
-  },
-  {
-    id: 3,
-    image: real_03,
-    alt: "Réalisation d'aménagement de jardin",
-  },
-  {
-    id: 4,
-    image: real_04,
-    alt: "Réalisation d'aménagement de jardin",
-  },
-  {
-    id: 5,
-    image: real_05,
-    alt: "Réalisation d'aménagement de jardin",
-  },
-];
+//j'appelle mon api via mon hook perso
+import { useRealisationImages } from "../../hooks/useRealisationImages";
 
 export default function Carousel() {
+  const backUrl = import.meta.env.VITE_BACK_URL;
+  const { realisationImages, loading, error } = useRealisationImages();
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  if (loading) {
+    return <p>Chargement des réalisations...</p>;
+  }
+
+  if (error) {
+    return <p>Impossible de charger les réalisations.</p>;
+  }
+
+  if (realisationImages.length === 0) {
+    return null;
+  }
 
   // on cree une fonction qui retournera un tableau des 3 images qui seront affichées à partir de notre liste d'images contenues dans realisations
 
   const getVisibleImages = () => {
     const previousIndex =
-      currentIndex === 0 ? realisations.length - 1 : currentIndex - 1;
+      currentIndex === 0 ? realisationImages.length - 1 : currentIndex - 1;
 
     const nextIndex =
-      currentIndex === realisations.length - 1 ? 0 : currentIndex + 1;
+      currentIndex === realisationImages.length - 1 ? 0 : currentIndex + 1;
 
     return [
       {
-        ...realisations[previousIndex],
+        ...realisationImages[previousIndex],
         className: "side-image",
         index: previousIndex,
       },
       {
-        ...realisations[currentIndex],
+        ...realisationImages[currentIndex],
         className: "center-image",
         index: currentIndex,
       },
-      { ...realisations[nextIndex], className: "side-image", index: nextIndex },
+      { ...realisationImages[nextIndex], className: "side-image", index: nextIndex },
     ];
   };
 
   // Création des fonctions pour changer d'image en cliquant sur une zone de l'image centrale
   const previousSlide = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? realisations.length - 1 : prevIndex - 1,
+      prevIndex === 0 ? realisationImages.length - 1 : prevIndex - 1,
     );
   };
 
   const nextSlide = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === realisations.length - 1 ? 0 : prevIndex + 1,
+      prevIndex === realisationImages.length - 1 ? 0 : prevIndex + 1,
     );
   };
 
@@ -85,7 +68,10 @@ export default function Carousel() {
             key={realisation.id}
             onClick={() => setCurrentIndex(realisation.index)}
           >
-            <img src={realisation.image} alt={realisation.alt} />
+            <img 
+              src={`${backUrl}${realisation.imageUrl}`}
+              alt={realisation.altText}
+            />
 
             {/* creation d'une zone de clic sur l'image centrale car j'ai enlever le scroll y */}
             {realisation.className === "center-image" && (
@@ -96,7 +82,7 @@ export default function Carousel() {
                     e.stopPropagation();
                     setCurrentIndex(
                       currentIndex === 0
-                        ? realisations.length - 1
+                        ? realisationImages.length - 1
                         : currentIndex - 1,
                     );
                   }}
@@ -107,7 +93,7 @@ export default function Carousel() {
                   onClick={(e) => {
                     e.stopPropagation();
                     setCurrentIndex(
-                      currentIndex === realisations.length - 1
+                      currentIndex === realisationImages.length - 1
                         ? 0
                         : currentIndex + 1,
                     );
