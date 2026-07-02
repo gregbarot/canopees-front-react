@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import "./Slider.css";
 
-//j'appelle mon api
-import { useSliderImages } from "../../hooks/useSLiderImages";
+//j'appelle mon api via mon hook perso
+import { useSliderImages } from "../../hooks/useSliderImages";
 
 export default function Slider() {
   const backUrl = import.meta.env.VITE_BACK_URL;
