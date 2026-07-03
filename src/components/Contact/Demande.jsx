@@ -29,7 +29,7 @@ export default function Demande({
           <option value="dechets">Valorisation des déchets verts</option>
           <option value="autre">Autre demande</option>
         </select>
-        {showValidation.prestation && (
+        {showValidation.demande && (
           <p className="error-message">Veuillez choisir une prestation.</p>
         )}
       </div>
