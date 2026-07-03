@@ -8,6 +8,8 @@ import Rgpd from "./Rgpd";
 import "./Formulaire.css";
 
 export default function Formulaire() {
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const [inputsStates, setInputsStates] = useState({
     demande: "",
     message: "",
@@ -26,39 +28,92 @@ export default function Formulaire() {
     rgpd: false,
   });
 
+  const [sending, setSending] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [serverError, setServerError] = useState("");
+
   // Ma fonction d'envoi du formulaire
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
+    setSuccessMessage("");
+    setServerError("");
+
     if (validationCheck()) {
-      alert(
-        `Merci ${inputsStates.nom}.
-Votre message a bien été envoyé.
-✅🍀🌳`,
-      );
+      //       alert(
+      //         `Merci ${inputsStates.nom}.
+      // Votre message a bien été envoyé.
+      // ✅🍀🌳`,
+      //       );
+      // return;
+      // }
 
-      // RESET DU FORMULAIRE
-      setInputsStates({
-        demande: "",
-        message: "",
-        nom: "",
-        telephone: "",
-        email: "",
-        rgpd: false,
-      });
+      setSending(true);
 
-      setShowValidation({
-        demande: false,
-        message: false,
-        nom: false,
-        telephone: false,
-        email: false,
-        rgpd: false,
-      });
+      //nettoyage du telephone s'il y a des espaces.
+      const cleanedPhone = inputsStates.telephone.replace(/\s/g, "");
+
+      //on stocke le message
+      const contactMessage = {
+        serviceRequested: inputsStates.demande,
+        name: inputsStates.nom,
+        message: inputsStates.message,
+        phone: cleanedPhone,
+        email: inputsStates.email,
+      };
+
+      //Requete Post pour le message
+      try {
+        const response = await fetch(`${apiUrl}/contact_messages`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/ld+json",
+          },
+          body: JSON.stringify(contactMessage),
+        });
+
+        if (!response.ok) {
+          throw new Error("Erreur lors de l’envoi du message");
+        }
+
+        setSuccessMessage(
+          `Merci ${inputsStates.nom}. Votre message a bien été envoyé. ✅🍀🌳`,
+        );
+
+        // RESET DU FORMULAIRE
+        setInputsStates({
+          demande: "",
+          message: "",
+          nom: "",
+          telephone: "",
+          email: "",
+          rgpd: false,
+        });
+
+        setShowValidation({
+          demande: false,
+          message: false,
+          nom: false,
+          telephone: false,
+          email: false,
+          rgpd: false,
+        });
+
+        //si je catche une erreur
+      } catch (error) {
+        console.error(error);
+        setServerError(
+          "Une erreur est survenue lors de l’envoi du formulaire. Veuillez réessayer.",
+        );
+      } finally {
+        setSending(false);
+      }
     }
   }
   // Ma fonction de validation - je cree un objet avec chaque input qui sera valide ou non.
   function validationCheck() {
+    const cleanedPhone = inputsStates.telephone.replace(/\s/g, "");
+
     const areValid = {
       demande: false,
       message: false,
@@ -92,7 +147,7 @@ Votre message a bien été envoyé.
       setShowValidation((state) => ({ ...state, nom: false }));
     }
     //le numero de telephone avec regex de base
-    if (!/^0[1-9](\d{2}){4}$/.test(inputsStates.telephone)) {
+    if (!/^0[1-9](\d{2}){4}$/.test(cleanedPhone)) {
       setShowValidation((state) => ({ ...state, telephone: true }));
     } else {
       areValid.telephone = true;
@@ -113,7 +168,7 @@ Votre message a bien été envoyé.
       setShowValidation((state) => ({ ...state, rgpd: false }));
     }
 
-    //l'objet retourné 
+    //l'objet retourné
     return Object.values(areValid).every((value) => value);
   }
 
@@ -157,8 +212,16 @@ Votre message a bien été envoyé.
 
       <p className="required-note">*Ces champs sont obligatoires</p>
 
-      <button type="submit" className="btn-submit align-self-center">
-        Envoyer
+      {successMessage && <p className="success-message">{successMessage}</p>}
+
+      {serverError && <p className="error-message">{serverError}</p>}
+
+      <button
+        type="submit"
+        className="btn-submit align-self-center"
+        disabled={sending}
+      >
+        {sending ? "Envoi en cours..." : "Envoyer"}
       </button>
     </form>
   );
