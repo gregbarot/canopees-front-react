@@ -2,11 +2,11 @@ import { useEffect } from "react";
 
 import { usePageContents } from "../hooks/usePageContents";
 import { useBios } from "../hooks/useBios";
+import { useCompanyInfos } from "../hooks/useCompanyInfos";
 
 import Formulaire from "../components/Contact/Formulaire";
-import "../styles/Contact.css";
-// import contactImage from "../assets/images/portrait/bob-et-tom.png";
 import maps from "../assets/images/maps-canopees.png";
+import "../styles/Contact.css";
 
 export default function Contact() {
   // Titre et Description de ma page.
@@ -26,10 +26,13 @@ export default function Contact() {
 
   const backUrl = import.meta.env.VITE_BACK_URL;
 
+  //contenu des pages
   const { getContent, loading, error } = usePageContents("contact");
   const pageContent = getContent("introduction");
   const infosContent = getContent("infos");
   const scheduleContent = getContent("horaires");
+
+  //contenu des bios
   const {
     bios,
     loading: biosLoading,
@@ -37,6 +40,12 @@ export default function Contact() {
         } = useBios();
 
   const company = bios.find((bio) => bio.name === "Canopées");
+
+  //contenu infos 
+  const { companyInfos } = useCompanyInfos();
+  const canopeesInfo =
+    companyInfos.find((companyInfo) => companyInfo.name === "Canopées");
+
 
   return (
     <section className="py-4" id="contact">
@@ -79,9 +88,9 @@ export default function Contact() {
                   className="order-2 order-md-1"
                 />
                 <div className="adresse d-flex flex-column align-items-center order-1 order-md-2">
-                  <h3>Canopées</h3>
-                  <p>820 Boulevard des Capucines</p>
-                  <p>82000 Montauban</p>
+                  <h3>{canopeesInfo?.name}</h3>
+                  <p>{canopeesInfo?.addressLine1}</p>
+                  <p>{canopeesInfo?.addressLine2}</p>
                 </div>
               </div>
             </div>

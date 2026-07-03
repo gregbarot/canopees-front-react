@@ -20,6 +20,7 @@ export default function Accueil() {
   const realisationsContent = getContent("realisations");
 
 
+
   // Titre et Description de ma page.
   useEffect(() => {
     document.title =

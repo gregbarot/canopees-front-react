@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import "./Footer.css";
+
+import { useCompanyInfos } from "../../hooks/useCompanyInfos";
+
 import pinmap from "../../assets/icons/pinmap.svg";
 import phone from "../../assets/icons/phone.svg";
 import mail from "../../assets/icons/mail.svg";
@@ -9,7 +12,15 @@ import logo_instagram from "../../assets/icons/logo_instagram.svg";
 import logo_linkedin from "../../assets/icons/logo_linkedin.svg";
 
 export default function Footer() {
+  const backUrl = import.meta.env.VITE_BACK_URL;
+
+  const { companyInfos, loading, error } = useCompanyInfos();
+
+  const canopeesInfo =
+    companyInfos.find((companyInfo) => companyInfo.name === "Canopées");
+
   return (
+
     <footer>
       <div className="container">
 
@@ -20,16 +31,20 @@ export default function Footer() {
             <div className="col-12 col-lg-auto d-flex justify-content-center align-items-center">
               <img src={pinmap} alt="" className="pe-2" />
               <span className="footer-text px-2">
-                820 Boulevard des Capucines, 82000 Montauban
+                {canopeesInfo?.address}
               </span>
             </div>
             <div className="col-12 col-lg-auto d-flex justify-content-center align-items-center">
               <img src={phone} alt="" className="px-2" />
-              <span className="footer-text px-2">09.48.56.87.96</span>
+              <span className="footer-text px-2">
+                {canopeesInfo?.phone}
+              </span>
             </div>
             <div className="col-12 col-lg-auto d-flex justify-content-center align-items-center">
               <img src={mail} alt="" className="px-2" />
-              <span className="footer-text ps-2"> contact@canopees.fr</span>
+              <span className="footer-text ps-2">
+                {canopeesInfo?.email}
+              </span>
             </div>
           </div>
 
@@ -40,7 +55,7 @@ export default function Footer() {
           >
             <ul className="row justify-content-center gap-3">
               <li className="col list-group-item justify-content-center align-self-center border-0">
-                <Link to="https://www.facebook.com">
+                <Link to={canopeesInfo?.facebookUrl} target="_blank" rel="noopener noreferrer">
                   <img
                     className="social-icon"
                     src={logo_facebook}
@@ -50,7 +65,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li className="col list-group-item justify-content-center align-self-center border-0">
-                <Link to="https://www.instagram.com">
+                <Link to={canopeesInfo?.instagramUrl} target="_blank" rel="noopener noreferrer">
                   <img
                     className="social-icon"
                     src={logo_instagram}
@@ -60,7 +75,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li className="col list-group-item justify-content-center align-self-center border-0">
-                <Link to="https://www.linkedin.com">
+                <Link to= {canopeesInfo?.linkedinUrl} target="_blank" rel="noopener noreferrer">
                   <img
                     className="social-icon"
                     src={logo_linkedin}
