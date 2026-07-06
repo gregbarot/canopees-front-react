@@ -2,7 +2,6 @@ import "./PrestationCard.css";
 import ModalButton from "./ModalButton";
 import { useServiceImages } from "../../hooks/useServiceImages";
 
-
 export default function PrestationCard({ prestation }) {
   const backUrl = import.meta.env.VITE_BACK_URL;
 
@@ -10,8 +9,11 @@ export default function PrestationCard({ prestation }) {
 
   const isOdd = prestation.id % 2 !== 0;
 
-  const mainImage =
-    serviceImages.find((image) => image.main) || serviceImages[0];
+  //on stocke les images "actives" dans la bdd
+  const activeImages = serviceImages.filter((image) => image.active === true);
+
+  //on stocke l'image principale
+  const mainImage = activeImages.find((image) => image.main) || activeImages[0];
 
   return (
     // mon container pour le fond
@@ -36,7 +38,7 @@ export default function PrestationCard({ prestation }) {
               />
               {/* Bouton mobile */}
               <div className="d-none d-lg-flex mt-auto">
-                <ModalButton prestation={prestation} images={serviceImages} />
+                <ModalButton prestation={prestation} images={activeImages} />
               </div>
             </div>
           </div>
@@ -53,12 +55,11 @@ export default function PrestationCard({ prestation }) {
                 className={`img-fluid border-${prestation.color}`}
               />
             )}
-
           </div>
 
           {/* Bouton Desktop */}
           <div className="d-lg-none d-flex justify-content-center my-5">
-            <ModalButton prestation={prestation} images={serviceImages}/>
+            <ModalButton prestation={prestation} images={activeImages} />
           </div>
         </div>
       </div>

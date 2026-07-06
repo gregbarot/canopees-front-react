@@ -49,7 +49,7 @@ export default function ModalPrestation({ closeModal, prestation, images }) {
           {/* Vignettes */}
           <div className="modal-gallery row">
             {images.map((image, index) => (
-              <div className="col-6 col-md-3 my-2" key={image.id}>
+              <div className="col-3 my-2" key={image.id}>
                 <img
                   src={`${backUrl}${image.imageUrl}`}
                   alt={image.altText}
@@ -60,7 +60,7 @@ export default function ModalPrestation({ closeModal, prestation, images }) {
             ))}
           </div>
           {/* titre */}
-          <h2 className="mt-2">{prestation.titre}</h2>
+          <h2 className="mt-2">{prestation.name}</h2>
         </div>
       </div>
     </div>
