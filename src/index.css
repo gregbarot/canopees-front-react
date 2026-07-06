@@ -50,13 +50,17 @@ body {
   touch-action: pan-y;
 }
 
-p {
+p, 
+.rich-text p,
+.rich-text div {
   font-size: var(--fs-16);
   line-height: 1.6;
 }
 
 @media (min-width: 992px) {
-  p {
+  p,
+  .rich-text p,
+  .rich-text div {
     font-size: var(--fs-20);
   }
 }

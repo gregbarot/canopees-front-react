@@ -17,7 +17,7 @@ export default function PortraitCard({ bio }) {
 
       <div className="portrait-content">
         <div
-          className="portrait-body"
+          className="portrait-body rich-text"
           dangerouslySetInnerHTML={{
             __html: bio?.description,
           }}

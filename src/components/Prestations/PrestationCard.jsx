@@ -29,7 +29,7 @@ export default function PrestationCard({ prestation }) {
               ></div>
 
               <div
-                className="prestation-description"
+                className="prestation-description rich-text"
                 dangerouslySetInnerHTML={{
                   __html: prestation.description || "",
                 }}
