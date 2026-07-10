@@ -1,4 +1,4 @@
-# Site Web Canopées
+# Front React/Vite Canopées
 
 ## Prérequis
 
