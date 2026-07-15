@@ -32,7 +32,13 @@ export default function Header() {
         className={`${scrolled ? "py-0" : "py-5"} logo-container d-flex justify-content-center`}
       >
         <Link to="/">
-          <img className="logo" src={`${backUrl}${canopeesInfo?.logoUrl}`} alt="logo de Canopées" />
+          {canopeesInfo?.logoUrl && (
+            <img
+              className="logo"
+              src={`${backUrl}${canopeesInfo.logoUrl}`}
+              alt="logo de Canopées"
+            />
+          )}
         </Link>
       </div>
 
