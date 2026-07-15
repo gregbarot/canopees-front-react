@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.canopees.fr/sitemap.xml
+Sitemap: https://canopees.gregorybarot.fr/sitemap.xml
