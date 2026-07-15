@@ -36,7 +36,7 @@ export default function PrestationCard({ prestation }) {
                   __html: prestation.description || "",
                 }}
               />
-              {/* Bouton mobile */}
+              {/* Bouton Desktop */}
               <div className="d-none d-lg-flex mt-auto">
                 <ModalButton prestation={prestation} images={activeImages} />
               </div>
@@ -57,7 +57,7 @@ export default function PrestationCard({ prestation }) {
             )}
           </div>
 
-          {/* Bouton Desktop */}
+          {/* Bouton Mobile */}
           <div className="d-lg-none d-flex justify-content-center my-5">
             <ModalButton prestation={prestation} images={activeImages} />
           </div>

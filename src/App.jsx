@@ -6,7 +6,7 @@ import React, { useLayoutEffect } from "react";
 
 //import Composants
 import Footer from "./components/Footer/Footer";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 
 //import Pages
 import Accueil from "./pages/Accueil";

@@ -6,14 +6,13 @@ export default function ModalPrestation({ closeModal, prestation, images }) {
   const backUrl = import.meta.env.VITE_BACK_URL;
 
   const [imageActive, setImageActive] = useState(0);
+  const imagePrincipale = images[imageActive];
 
   //au cas ou les images ne sont pas chargées
   if (!images || images.length === 0) {
     return null;
   }
 
-  const imagePrincipale = images[imageActive];
-  // const vignette = images;
 
   return (
     <div

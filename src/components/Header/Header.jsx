@@ -2,10 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 
-import { useCompanyInfos } from "../hooks/useCompanyInfos";
-
-import logo from "../assets/images/logo-canopees.png";
-import Navbar from "./Navbar/Navbar";
+import { useCompanyInfos } from "../../hooks/useCompanyInfos";
+import Navbar from "../Navbar/Navbar";
 
 export default function Header() {
   const backUrl = import.meta.env.VITE_BACK_URL;
